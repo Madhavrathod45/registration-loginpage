@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration & Login</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            line-height: 1.6;
+            color: #333;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px 0;
+            border-bottom: 2px solid #4a6cf7;
+        }
+        
+        header h1 {
+            color: #4a6cf7;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+        
+        /* Form Container Layout */
+        .forms-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+        }
+        
+        .form-wrapper {
+            flex: 1;
+            min-width: 350px;
+            max-width: 500px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        
+        .form-wrapper:hover {
+            transform: translateY(-5px);
+        }
+        
+        /* Form Headers */
+        .form-header {
+            background: linear-gradient(to right, #4a6cf7, #6a11cb);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+        
+        .form-header h2 {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+        
+        .form-header p {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+        
+        /* Form Body */
+        .form-body {
+            padding: 30px;
+        }
+        
+        /* Form Groups */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #4a6cf7;
+        }
+        
+        /* Required Field Indicator */
+        .required {
+            color: #e74c3c;
+        }
+        
+        /* Button Styles */
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(to right, #4a6cf7, #6a11cb);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+        
+        .btn:hover {
+            opacity: 0.9;
+        }
+        
+        /* Form Footer */
+        .form-footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-top: 1px solid #eee;
+            color: #666;
+        }
+        
+        /* Password Requirements */
+        .password-requirements {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 5px;
+            font-size: 0.85rem;
+            color: #666;
+            border-left: 3px solid #4a6cf7;
+        }
+        
+        .password-requirements h4 {
+            margin-bottom: 5px;
+            color: #333;
+        }
+        
+        .password-requirements ul {
+            padding-left: 20px;
+        }
+        
+        .password-requirements li {
+            margin-bottom: 3px;
+        }
+        
+        /* Demo Credentials */
+        .demo-credentials {
+            background-color: #e8f4fd;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 20px;
+            border-left: 3px solid #4a6cf7;
+        }
+        
+        .demo-credentials h4 {
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .forms-container {
+                flex-direction: column;
+            }
+            
+            .form-wrapper {
+                min-width: 100%;
+            }
+            
+            header h1 {
+                font-size: 2rem;
+            }
+        }
+        
+        /* Form Separator */
+        .form-separator {
+            text-align: center;
+            margin: 30px 0;
+            position: relative;
+        }
+        
+        .form-separator::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #ddd;
+            z-index: 1;
+        }
+        
+        .form-separator span {
+            background: white;
+            padding: 0 20px;
+            color: #666;
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Checkbox Styles */
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .checkbox-group input {
+            width: auto;
+            margin-right: 10px;
+        }
+        
+        .checkbox-group label {
+            margin-bottom: 0;
+        }
+        
+        /* Terms Link */
+        .terms-link {
+            color: #4a6cf7;
+            text-decoration: none;
+        }
+        
+        .terms-link:hover {
+            text-decoration: underline;
+        }
+        
+        /* Form Notes */
+        .form-note {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 5px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Welcome to Our Platform</h1>
+            <p>Create an account or login to access all features</p>
+        </header>
+        
+        <div class="forms-container">
+            <!-- Registration Form -->
+            <div class="form-wrapper">
+                <div class="form-header">
+                    <h2>Create New Account</h2>
+                    <p>Join our community today</p>
+                </div>
+                
+                <div class="form-body">
+                    <form id="registrationForm">
+                        <div class="form-group">
+                            <label for="name">Full Name <span class="required">*</span></label>
+                            <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email Address <span class="required">*</span></label>
+                            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="password">Password <span class="required">*</span></label>
+                            <input type="password" id="password" name="password" placeholder="Create a password" required>
+                            
+                            <div class="password-requirements">
+                                <h4>Password Requirements:</h4>
+                                <ul>
+                                    <li>At least 8 characters long</li>
+                                    <li>Contains at least one number</li>
+                                    <li>Contains at least one special character</li>
+                                    <li>Contains both uppercase and lowercase letters</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="confirm-password">Confirm Password <span class="required">*</span></label>
+                            <input type="password" id="confirm-password" name="confirm-password" placeholder="Re-enter your password" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Phone Number (Optional)</label>
+                            <input type="tel" id="phone" name="phone" placeholder="Enter your phone number">
+                        </div>
+                        
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="terms" name="terms" required>
+                            <label for="terms">
+                                I agree to the <a href="#" class="terms-link">Terms of Service</a> and <a href="#" class="terms-link">Privacy Policy</a>
+                                <span class="required">*</span>
+                            </label>
+                        </div>
+                        
+                        <button type="submit" class="btn">Create Account</button>
+                    </form>
+                    
+                    <div class="form-separator">
+                        <span>Or register with</span>
+                    </div>
+                    
+                    <button type="button" class="btn" style="background: linear-gradient(to right, #4285F4, #34A853); margin-bottom: 10px;">
+                        Continue with Google
+                    </button>
+                    
+                    <button type="button" class="btn" style="background: linear-gradient(to right, #3b5998, #8b9dc3);">
+                        Continue with Facebook
+                    </button>
+                </div>
+                
+                <div class="form-footer">
+                    <p>Already have an account? <strong>Scroll down to login</strong></p>
+                </div>
+            </div>
+            
+            <!-- Login Form -->
+            <div class="form-wrapper">
+                <div class="form-header">
+                    <h2>Login to Your Account</h2>
+                    <p>Welcome back! Please enter your credentials</p>
+                </div>
+                
+                <div class="form-body">
+                    <form id="loginForm">
+                        <div class="form-group">
+                            <label for="login-email">Email Address <span class="required">*</span></label>
+                            <input type="email" id="login-email" name="login-email" placeholder="Enter your email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="login-password">Password <span class="required">*</span></label>
+                            <input type="password" id="login-password" name="login-password" placeholder="Enter your password" required>
+                            <p class="form-note">
+                                <a href="#" class="terms-link">Forgot your password?</a>
+                            </p>
+                        </div>
+                        
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="remember-me" name="remember-me">
+                            <label for="remember-me">Remember me</label>
+                        </div>
+                        
+                        <button type="submit" class="btn">Sign In</button>
+                    </form>
+                    
+                    <div class="form-separator">
+                        <span>Or login with</span>
+                    </div>
+                    
+                    <button type="button" class="btn" style="background: linear-gradient(to right, #4285F4, #34A853); margin-bottom: 10px;">
+                        Continue with Google
+                    </button>
+                    
+                    <button type="button" class="btn" style="background: linear-gradient(to right, #3b5998, #8b9dc3);">
+                        Continue with Facebook
+                    </button>
+                    
+                    <div class="demo-credentials">
+                        <h4>Demo Credentials:</h4>
+                        <p><strong>Email:</strong> demo@example.com</p>
+                        <p><strong>Password:</strong> demo123</p>
+                    </div>
+                </div>
+                
+                <div class="form-footer">
+                    <p>Don't have an account? <strong>Scroll up to register</strong></p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Page Footer -->
+        <footer style="text-align: center; margin-top: 50px; padding: 20px; color: #666; border-top: 1px solid #ddd;">
+            <p>&copy; 2023 Your Company Name. All rights reserved.</p>
+            <p style="margin-top: 10px; font-size: 0.9rem;">
+                <a href="#" style="color: #4a6cf7; text-decoration: none; margin: 0 10px;">Privacy Policy</a> | 
+                <a href="#" style="color: #4a6cf7; text-decoration: none; margin: 0 10px;">Terms of Service</a> | 
+                <a href="#" style="color: #4a6cf7; text-decoration: none; margin: 0 10px;">Contact Us</a>
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
